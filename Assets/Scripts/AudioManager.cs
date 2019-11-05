@@ -8,8 +8,8 @@ public class AudioManager : MonoBehaviour
 
     public GameManager GM;
 
-    public AudioSource BGAS, EffectAS;
-    public AudioClip CoinSnd;
+    public AudioSource BGAS, EffectAS;  // Переменные для источника звука
+    public AudioClip CoinSnd;           // Переменная для звука монет
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void RefreshSoundState()
+    public void RefreshSoundState()   // Пауза и продолжение проигрывания музыки
     {
         if (GM.IsSound)
             BGAS.UnPause();

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour {
 
-    public List<ShopItem> Items;
-    public ShopItem.ItemType ActiveSkin;
+    public List<ShopItem> Items;  // Список всех предметов
+    public ShopItem.ItemType ActiveSkin;  // текущий активный скин
 
-    public void OpenShop()
+    public void OpenShop()  // Включение объекта с магазином
     {
         CheckItemButtons();
         gameObject.SetActive(true);
     }
 
-    public void CloseShop()
+    public void CloseShop()     // Отключение объекта с магазином
     {
         gameObject.SetActive(false);
     }

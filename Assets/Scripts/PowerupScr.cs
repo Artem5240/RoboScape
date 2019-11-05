@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class PowerupScr : MonoBehaviour
 {
-    public Image Progressbar;
-    public Color[] Colors;
+    public Image Progressbar; // Изображение прогрессбара
+    public Color[] Colors;  // Массив цветов для каждого паверапа
 
-    public void SetData(PowerUpController.PowerUp.Type type)
+    public void SetData(PowerUpController.PowerUp.Type type)  // Принимает на вход тип паверапа
     {
-        Progressbar.color = Colors[(int)type];
+        Progressbar.color = Colors[(int)type];              // И устанавливает цвет в зависимости от типа
     }
 
     public void SetProgress(float progress)
@@ -18,7 +18,7 @@ public class PowerupScr : MonoBehaviour
         Progressbar.fillAmount = progress;
     }
 
-    public void Destroy()
+    public void Destroy()       // Уничтожаем геймобджект
     {
         Destroy(gameObject);
     }

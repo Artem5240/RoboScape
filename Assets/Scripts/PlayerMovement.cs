@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour {
                  SideSpeed;             // Скорость перемещения с одной линии на другую 
 
     bool isRolling = false;
-    bool isImmortal = false;
+    bool isImmortal = false;       // Эффект бессмертия
 
     Vector3 ccCenterNorm = new Vector3(0, .96f, 0),
             ccCenterRoll = new Vector3(0, .4f, .85f);
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
 
     bool wannaJump = false;
 
-    Vector3 startPosition;
+    Vector3 startPosition;   // Для респавна на центр. линии
     Vector3 rbVelocity;
 
 	void Start ()
@@ -42,10 +42,10 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 
         startPosition = transform.position;
-        SwipeController.SwipeEvent += CheckInput;
+        SwipeController.SwipeEvent += CheckInput;      // Для обработки свайпов
 	}
 
-    public void Respawn()
+    public void Respawn()   // Чтоб после смерти во время ползанья не респавнился ползущим
     {
         StopAllCoroutines();
         isImmortal = false;
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (isGrounded() && GM.CanPlay && !isRolling)
         {
-            if (type == SwipeController.SwipeType.UP)
+            if (type == SwipeController.SwipeType.UP)       // Проверяем тип свайпа (верх-низ)
                 wannaJump = true;
             else if (type == SwipeController.SwipeType.DOWN)
                 StartCoroutine(DoRoll());
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
         if (!GM.CanPlay || isRolling)
             return;
 
-        if (type == SwipeController.SwipeType.LEFT)
+        if (type == SwipeController.SwipeType.LEFT)     // Проверяем тип свайпа (лево-право)
             sign = -1;
         else if (type == SwipeController.SwipeType.RIGHT)
             sign = 1;
@@ -135,7 +135,7 @@ public class PlayerMovement : MonoBehaviour {
         selfCollider.center = ccCenterRoll;
         selfCollider.height = ccHeightRoll;
 
-        while (rollDuration > 0)
+        while (rollDuration > 0)                    // Чтоб во время паузы время ползанья не сокращалось
         {
             if (GM.CanPlay)
                 rollDuration -= Time.deltaTime;
@@ -169,26 +169,26 @@ public class PlayerMovement : MonoBehaviour {
              !GM.CanPlay)
             return;
 
-        if (isImmortal && !collision.gameObject.CompareTag("DeathPlane"))
-        {
-            collision.collider.isTrigger = true;
+        if (isImmortal && !collision.gameObject.CompareTag("DeathPlane"))   // Если игрок бессмертен и не упали с обрыва
+        {                                                                   // Выходи из ф-ции
+            collision.collider.isTrigger = true;            // Чтоб могли пробежать дальше
             return;
         }
 
         StartCoroutine(Death());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)   // Подбор итемов
     {
         switch(other.tag)
         {
-            case "Coin":
-                GM.AddCoins(1);
+            case "Coin":    // Если столкнулся с монеткой
+                GM.AddCoins(1);  // Подбор
                 AudioManager.Instance.PlayCoinEffect();
                 break;
 
-            case "MultiPU":
-                PowerUpUseEvent(PowerUpController.PowerUp.Type.MUILTIPLIER);
+            case "MultiPU":                                                        // Проверяем тег объектов с которыми столкнулись
+                PowerUpUseEvent(PowerUpController.PowerUp.Type.MUILTIPLIER);    // И активируем паверапы
                 break;
 
             case "ImmortalPU":
@@ -202,13 +202,13 @@ public class PlayerMovement : MonoBehaviour {
             default: return;
         }
 
-        Destroy(other.gameObject);
+        Destroy(other.gameObject);  // Уничтожаем подобранный обЪект
     }
 
     IEnumerator Death()
     {
         GM.CanPlay = false;
-        PUController.ResetAllPowerUps();
+        PUController.ResetAllPowerUps();   
 
         SkinAnimator.SetTrigger("death");
 
@@ -218,18 +218,18 @@ public class PlayerMovement : MonoBehaviour {
         GM.ShowResult();
     }
 
-    public void ResetPosition()
+    public void ResetPosition()       // Возвращение игрока на центральную линию после смерти
     {
         transform.position = startPosition;
         laneNumber = 1;
     }
 
-    public void ImmortalityOn()
+    public void ImmortalityOn()    // Включение бессмертия
     {
         isImmortal = true;
     }
-
-    public void ImmortalityOff()
+    
+    public void ImmortalityOff()    // Выключение бессмертия
     {
         isImmortal = false;
     }

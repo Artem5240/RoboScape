@@ -7,12 +7,12 @@ public class MainMenuController : MonoBehaviour
 {
     public GameManager GM;
 
-    public Sprite SoundsOn, SoundsOff;
-    public Image SoundsBtnImg;
+    public Sprite SoundsOn, SoundsOff;  // Спрайты кнопки звука
+    public Image SoundsBtnImg;          // Изображение кнопки звука
 
-    public void PlayBtn()
+    public void PlayBtn()     // Метод для кнопки плей
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);  // Отклчаем объект меню
         GM.StartGame();
     }
 
@@ -21,15 +21,15 @@ public class MainMenuController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void QuitBtn()
+    public void QuitBtn()           // Метод для кнопки выход
     {
         Application.Quit();
     }
 
-    public void SoundBtn()
+    public void SoundBtn()          // Метод для кнопки звука
     {
         GM.IsSound = !GM.IsSound;
-        SoundsBtnImg.sprite = GM.IsSound ? SoundsOn : SoundsOff;
+        SoundsBtnImg.sprite = GM.IsSound ? SoundsOn : SoundsOff;  // Обновляем спрайт кнопки в зависимости от IsSound
         AudioManager.Instance.RefreshSoundState();
     }
 }

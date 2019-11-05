@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+// короче это скрипт сохранения всех предметов и монеток, у него есть отдельный видос по этому и тут он нихуя не объяснил
 public class SaveManager : MonoBehaviour {
 
     public ShopManager SM;

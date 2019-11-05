@@ -8,21 +8,21 @@ public class PauseMenuController : MonoBehaviour
     public MainMenuController MMC;
     public PlayerMovement PM;
 
-    public void Pause()
+    public void Pause()                 // Кнопка паузы
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(true);   // Включаем объект меню паузы
         GM.CanPlay = false;
         PM.Pause();
     }
 
-    public void Resume()
+    public void Resume()            // Кнопка продолжения
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);   // Отключаем меню паузы
         GM.CanPlay = true;
         PM.UnPause();
     }
 
-    public void MenuBtn()
+    public void MenuBtn()   // Кнопка Main menu
     {
         PM.UnPause();
         PM.PUController.ResetAllPowerUps();

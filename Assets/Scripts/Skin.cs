@@ -6,12 +6,12 @@ public class Skin : MonoBehaviour {
 
     public Animator AC;
 
-    public void ShowSkin()
+    public void ShowSkin()   // Активация скина
     {
         gameObject.SetActive(true);
     }
 
-    public void HideSkin()
+    public void HideSkin()  // Деактивация скина
     {
         gameObject.SetActive(false);
     }
